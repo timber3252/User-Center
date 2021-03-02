@@ -1,33 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Auth</title>
-    <link
-      rel="stylesheet"
-      href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-    />
-    <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  </head>
-
-  <body>
-    <div class="container">
-      <div class="jumbotron">
-        <form action="/oauth2/auth" method="POST">
-          <h1>Authorize</h1>
-          <p>The client would like to perform actions on your behalf.</p>
-          <p>
-            <button
-              type="submit"
-              class="btn btn-primary btn-lg"
-              style="width:200px;"
-            >
-              Allow
-            </button>
-          </p>
-        </form>
-      </div>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>用户中心授权界面</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+   
+    <div class="board">
+        <div class="top">
+            <h1>授权</h1>
+            <label>{{client_id}}请求访问您的如下信息:</label>
+        </div>
+        
+        <div>
+            <ul>
+                <li v-for="(item,index) in scope" :key="index">{{item}}</li>
+            </ul>
+            
+        </div>
+        <div class="bottom">
+            <a class="allow" @click="allowEvent()">允许</a>
+            <a class="refuse">拒绝</a>
+        </div>
     </div>
-  </body>
+    <script>
+        var board=new Vue({
+        el:".board",
+        data:{
+            scope:[23,213,4,2345435,345646,546,456253,23,345,765,444563453445],
+            client_id:"",
+            allow:false
+        },
+        methods:{
+            allowEvent(){
+                this.allow=true;
+
+            } 
+        },
+        })
+    </script>
+</body>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background-color: skyblue;
+}
+
+h1{
+    text-align: center;
+}
+.board{
+  width: 500px;
+  margin-top: 50px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+.top{
+  background-color: #12df78;
+  width: 100%;
+}
+.bottom{
+    width: 100%;
+    background-color: rgb(173, 170, 170);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+a{
+    position: relative;
+    padding: 1px 20px;
+    text-decoration: none;
+}
+.allow{
+    color: #fff;
+    border-radius: 5px;
+    background-color: #12df78;
+    cursor:pointer;
+}
+.refuse{
+    color: black;
+    border-radius: 5px;
+    background-color: gray;
+    cursor:pointer;
+}
+.refuse:hover{
+     color: #fff;
+    border-radius: 5px;
+    background-color: #df3112;
+    box-shadow:0 0 2px #df3112,0 0 2px #df3112,0 0 2px #df3112,0 0 2px #df3112;
+    cursor:pointer;
+}
+@media only screen and (max-width:500px){
+    .board{
+        width: 400px;
+    }
+}
+@media only screen and (max-width:420px){
+    .board{
+        width:350px;
+    }
+}
+@media only screen and (max-width:370px){
+    .board{
+        width:300px;
+    }
+}
+</style>
 </html>
